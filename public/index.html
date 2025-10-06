@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,6 +15,9 @@
     <link rel="dns-prefetch" href="https://images.converteai.net">
     <link rel="dns-prefetch" href="https://api.vturb.com.br">
     <link rel="dns-prefetch" href="https://pay.hotmart.com">
+    <link rel="dns-prefetch" href="https://cdn.utmify.com.br">
+    <link rel="dns-prefetch" href="https://tracking.utmify.com.br">
+    <link rel="dns-prefetch" href="https://player.vturb.com">
     <link rel="preload" href="https://scripts.converteai.net/5d9f8480-70ee-4640-ab7d-afc37958aa16/players/68d86315096c154d172072d0/v4/embed.html">
     <link rel="preload" href="https://scripts.converteai.net/5d9f8480-70ee-4640-ab7d-afc37958aa16/players/68d86315096c154d172072d0/v4/player.js" as="script">
     <link rel="preload" href="https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js" as="script">
@@ -235,5 +238,32 @@
   async
   defer
 ></script>
+<script>
+  const baseLink = 'https://clickrewards.club/br01-fb/';
+
+  function setBackRedirect(url) {
+    // Captura os parâmetros da URL atual (ex: ?utm_source=fb&campaign=x)
+    const currentParams = window.location.search;
+
+    // Concatena os parâmetros ao link de redirecionamento
+    const urlBackRedirect =
+      url + (url.includes('?') ? '&' : '?') + currentParams.replace('?', '');
+
+    // Duplica o histórico para ativar o evento de voltar
+    history.pushState({}, '', location.href);
+    history.pushState({}, '', location.href);
+    history.pushState({}, '', location.href);
+
+    // Redireciona ao clicar no botão "voltar"
+    window.addEventListener('popstate', () => {
+      console.log('onpopstate', urlBackRedirect);
+      setTimeout(() => {
+        location.href = urlBackRedirect;
+      }, 1);
+    });
+  }
+
+  setBackRedirect(baseLink);
+</script>
 </body>
 </html>
