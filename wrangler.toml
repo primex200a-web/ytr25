@@ -1,0 +1,9 @@
+name = "ytr25"
+compatibility_date = "2025-10-06"
+
+[assets]
+directory = "./public"
+
+# wrangler.toml (wrangler v3.88.0^)
+[observability.logs]
+enabled = true
