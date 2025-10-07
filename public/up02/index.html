@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <link rel="stylesheet" href="./index_files/com.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formula FT</title>
+  </head>
+  <body>
+    <div class="progress-text">⏳ Your order is almost complete !</div>
+    <div class="progress-bar"><div class="progress">70%</div></div>
+
+    <div class="container">
+      <h1>Complete your process now or you will lose your access.</h1>
+
+      <center>
+        <p style="color: #00bc00; font-size: 28px"><b>BoosterX</b></p>
+      </center>
+
+      <p>
+        Our smart AI engine built to skyrocket your ads and multiply your
+        results effortlessly!
+      </p>
+
+      <div class="hmpay_container">
+        <!-- 🎯 JANELA DE RECORTE -->
+        <div class="mask-fallback" style="overflow-y: hidden; max-height: 63px; border-radius: 8px">
+          <div class="hm_mask" id="hm_mask">
+            <div class="hm_content" id="hm_content" style="top: -152px;">
+              <!--- sales funnel container --->
+              <div id="hotmart-sales-funnel" class="hm_embed" data-no-scroll=""><iframe class="custom-element__iframe" allow="clipboard-write; payment *" src="./index_files/funnel.html" style="width: 100%; min-width: 320px; min-height: 300px; border: 0px none; display: block;"></iframe></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ABRE SCRIPTS HOTMART -->
+        <!-- HOTMART - Sales Funnel Widget -->
+
+        <!--- script load and setup --->
+        <script src="./index_files/hotmart-checkout-elements.js"></script>
+        <script>
+          checkoutElements.init("salesFunnel").mount("#hotmart-sales-funnel");
+        </script>
+        <!-- HOTMART - Sales Funnel Widget -->
+        <!-- FECHA SCRIPT HOTMART -->
+      </div>
+
+      <!-- Bloqueio de rolagem + Centralização automática do conteúdo -->
+      <script>
+        (function () {
+          const mask = document.getElementById("hm_mask");
+          const content = document.getElementById("hm_content");
+          if (!mask || !content) return;
+
+          /* ===== 1) BLOQUEAR SCROLL (wheel/touch) dentro da máscara ===== */
+          const prevent = (e) => {
+            e.preventDefault();
+          };
+          const WHEEL = ["wheel", "mousewheel", "DOMMouseScroll"];
+          const TOUCH = ["touchmove"];
+
+          const armNoScrollOn = (el) => {
+            if (!el || el.__noScrollArmed) return;
+            el.__noScrollArmed = true;
+            WHEEL.forEach((t) =>
+              el.addEventListener(t, prevent, { passive: false, capture: true })
+            );
+            TOUCH.forEach((t) =>
+              el.addEventListener(t, prevent, { passive: false, capture: true })
+            );
+          };
+
+          armNoScrollOn(mask);
+          const armChildrenNoScroll = () => {
+            mask
+              .querySelectorAll("iframe, .hm_embed, [data-no-scroll]")
+              .forEach(armNoScrollOn);
+          };
+          armChildrenNoScroll();
+          new MutationObserver(armChildrenNoScroll).observe(mask, {
+            childList: true,
+            subtree: true,
+          });
+
+          const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+
+          const centerContent = () => {
+            const H = mask.clientHeight;
+            const C = content.offsetHeight;
+            let top = Math.round((H - C) / 2);
+            content.style.top = top + "px";
+          };
+
+          const roMask = new ResizeObserver(centerContent);
+          roMask.observe(mask);
+          const roContent = new ResizeObserver(centerContent);
+          roContent.observe(content);
+
+          const mo = new MutationObserver(centerContent);
+          mo.observe(content, { childList: true, subtree: true });
+
+          window.addEventListener("load", centerContent);
+          centerContent();
+        })();
+      </script>
+
+      <script src="./index_files/script.js"></script>
+    </div>
+
+    <!-- <div class="footer">© 2025 All rights reserved.</div> -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"bbe0694268fb44548855cb185d755d8a","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+
+</body></html>
