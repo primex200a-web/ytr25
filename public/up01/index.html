@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <link rel="stylesheet" href="./index_files/com.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Congratulations!</title>
+  </head>
+  <body>
+    <h1>Congratulations!</h1>
+
+    <div class="container">
+      <h3>ACCESS GRANTED, PRESS <u>"I WANT TO WIN"</u> TO START</h3>
+
+      <div class="hmpay_container">
+        <!-- 🎯 JANELA DE RECORTE -->
+        <div
+          class="mask-fallback"
+          style="overflow-y: hidden; max-height: 63px; border-radius: 8px"
+        >
+          <div class="hm_mask" id="hm_mask">
+            <div class="hm_content" id="hm_content">
+              <!--- sales funnel container --->
+              <div
+                id="hotmart-sales-funnel"
+                class="hm_embed"
+                data-no-scroll
+              ></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ABRE SCRIPTS HOTMART -->
+        <!-- HOTMART - Sales Funnel Widget -->
+
+        <!--- script load and setup --->
+        <script src="https://checkout.hotmart.com/lib/hotmart-checkout-elements.js"></script>
+        <script>
+          checkoutElements.init("salesFunnel").mount("#hotmart-sales-funnel");
+        </script>
+        <!-- HOTMART - Sales Funnel Widget -->
+        <!-- FECHA SCRIPT HOTMART -->
+      </div>
+
+      <!-- Bloqueio de rolagem + Centralização automática do conteúdo -->
+      <script>
+        (function () {
+          const mask = document.getElementById("hm_mask");
+          const content = document.getElementById("hm_content");
+          if (!mask || !content) return;
+
+          /* ===== 1) BLOQUEAR SCROLL (wheel/touch) dentro da máscara ===== */
+          const prevent = (e) => {
+            e.preventDefault();
+          };
+          const WHEEL = ["wheel", "mousewheel", "DOMMouseScroll"];
+          const TOUCH = ["touchmove"];
+
+          const armNoScrollOn = (el) => {
+            if (!el || el.__noScrollArmed) return;
+            el.__noScrollArmed = true;
+            WHEEL.forEach((t) =>
+              el.addEventListener(t, prevent, { passive: false, capture: true })
+            );
+            TOUCH.forEach((t) =>
+              el.addEventListener(t, prevent, { passive: false, capture: true })
+            );
+          };
+
+          armNoScrollOn(mask);
+          const armChildrenNoScroll = () => {
+            mask
+              .querySelectorAll("iframe, .hm_embed, [data-no-scroll]")
+              .forEach(armNoScrollOn);
+          };
+          armChildrenNoScroll();
+          new MutationObserver(armChildrenNoScroll).observe(mask, {
+            childList: true,
+            subtree: true,
+          });
+
+          const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+
+          const centerContent = () => {
+            const H = mask.clientHeight;
+            const C = content.offsetHeight;
+            let top = Math.round((H - C) / 2);
+            content.style.top = top + "px";
+          };
+
+          const roMask = new ResizeObserver(centerContent);
+          roMask.observe(mask);
+          const roContent = new ResizeObserver(centerContent);
+          roContent.observe(content);
+
+          const mo = new MutationObserver(centerContent);
+          mo.observe(content, { childList: true, subtree: true });
+
+          window.addEventListener("load", centerContent);
+          centerContent();
+        })();
+      </script>
+
+      <script src="./index_files/script.js"></script></div></body></html>
