@@ -13,6 +13,23 @@
   document.head.appendChild(a);
 </script>
     <title>Formula FT</title>
+    <style>
+      @media (max-width: 768px) {
+        #winButton {
+          font-size: 16px !important;
+          padding: 12px 25px !important;
+          margin: 15px 10px !important;
+        }
+      }
+      
+      @media (max-width: 480px) {
+        #winButton {
+          font-size: 14px !important;
+          padding: 10px 20px !important;
+          margin: 10px 5px !important;
+        }
+      }
+    </style>
   </head>
   <body>
     <div class="progress-text">⏳ Your order is almost complete !</div>
@@ -29,90 +46,29 @@
         Our smart AI engine built to skyrocket your ads and multiply your
         results effortlessly!
       </p>
-
-      <div class="hmpay_container">
-        <!-- 🎯 JANELA DE RECORTE -->
-        <div class="mask-fallback" style="overflow-y: hidden; max-height: 63px; border-radius: 8px">
-          <div class="hm_mask" id="hm_mask">
-            <div class="hm_content" id="hm_content" style="top: -152px;">
-              <!--- sales funnel container --->
-              <div id="hotmart-sales-funnel" class="hm_embed" data-no-scroll=""><iframe class="custom-element__iframe" allow="clipboard-write; payment *" src="./index_files/funnel.html" style="width: 100%; min-width: 320px; min-height: 300px; border: 0px none; display: block;"></iframe></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ABRE SCRIPTS HOTMART -->
-        <!-- HOTMART - Sales Funnel Widget -->
-
-        <!--- script load and setup --->
-        <script src="https://checkout.hotmart.com/lib/hotmart-checkout-elements.js"></script>
-        <script>
-          checkoutElements.init("salesFunnel").mount("#hotmart-sales-funnel");
-        </script>
-        <!-- HOTMART - Sales Funnel Widget -->
-        <!-- FECHA SCRIPT HOTMART -->
-      </div>
-
-      <!-- Bloqueio de rolagem + Centralização automática do conteúdo -->
-      <script>
-        (function () {
-          const mask = document.getElementById("hm_mask");
-          const content = document.getElementById("hm_content");
-          if (!mask || !content) return;
-
-          /* ===== 1) BLOQUEAR SCROLL (wheel/touch) dentro da máscara ===== */
-          const prevent = (e) => {
-            e.preventDefault();
-          };
-          const WHEEL = ["wheel", "mousewheel", "DOMMouseScroll"];
-          const TOUCH = ["touchmove"];
-
-          const armNoScrollOn = (el) => {
-            if (!el || el.__noScrollArmed) return;
-            el.__noScrollArmed = true;
-            WHEEL.forEach((t) =>
-              el.addEventListener(t, prevent, { passive: false, capture: true })
-            );
-            TOUCH.forEach((t) =>
-              el.addEventListener(t, prevent, { passive: false, capture: true })
-            );
-          };
-
-          armNoScrollOn(mask);
-          const armChildrenNoScroll = () => {
-            mask
-              .querySelectorAll("iframe, .hm_embed, [data-no-scroll]")
-              .forEach(armNoScrollOn);
-          };
-          armChildrenNoScroll();
-          new MutationObserver(armChildrenNoScroll).observe(mask, {
-            childList: true,
-            subtree: true,
-          });
-
-          const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
-
-          const centerContent = () => {
-            const H = mask.clientHeight;
-            const C = content.offsetHeight;
-            let top = Math.round((H - C) / 2);
-            content.style.top = top + "px";
-          };
-
-          const roMask = new ResizeObserver(centerContent);
-          roMask.observe(mask);
-          const roContent = new ResizeObserver(centerContent);
-          roContent.observe(content);
-
-          const mo = new MutationObserver(centerContent);
-          mo.observe(content, { childList: true, subtree: true });
-
-          window.addEventListener("load", centerContent);
-          centerContent();
-        })();
-      </script>
-
-      <script src="./index_files/script.js"></script>
+      
+      <button id="winButton" style="
+        background-color: #28a745;
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        font-size: 18px;
+        font-weight: bold;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 20px 0;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      " onmouseover="this.style.backgroundColor='#218838'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 12px rgba(0,0,0,0.3)'" 
+         onmouseout="this.style.backgroundColor='#28a745'; this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 8px rgba(0,0,0,0.2)'"
+         onclick="window.location.href='https://go.centerpag.com/PPU38CQ1TF8?upsell=true'">
+        I WANT TO WIN
+      </button>
     </div>
 
     <!-- <div class="footer">© 2025 All rights reserved.</div> -->
@@ -120,6 +76,13 @@
 <script>
   setTimeout(function() {
     window.location.href = "https://clickrewards.club/thanks-fb/";
-  }, 30000); // 30000 ms = 30 segundos
+  }, 60000); // 60000 ms = 1 minuto
 </script>
+<script
+  src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+  data-utmify-prevent-xcod-sck
+  data-utmify-prevent-subids
+  async
+  defer
+></script>
 </body></html>
