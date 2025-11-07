@@ -105,47 +105,56 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function loadVideoScript(type) {
-    
     let scriptSrc = '';
-    
+
     if (type === 'vsl') {
             scriptSrc = 'https://scripts.converteai.net/5d9f8480-70ee-4640-ab7d-afc37958aa16/players/690d396a86e3a582c04eb4ff/v4/player.js';
             
-            // Verificar se o script já foi carregado
-            const existingScript = document.querySelector(`script[src="${scriptSrc}"]`);
-            if (existingScript) {
-                // Script já carregado, apenas inicializar o player
-                setTimeout(() => {
-                    const player = document.querySelector('vturb-smartplayer');
-                    if (player) {
-                        player.addEventListener('player:ready', () => {
-                            const delaySeconds = 1185;
-                            player.displayHiddenElements(delaySeconds, [".esconder"], {persist: true});
-                        });
-                    }
-                }, 500);
+            const playerEl = document.querySelector('vturb-smartplayer');
+            const sdkDefined = !!customElements.get('vturb-anchor-button') || !!customElements.get('vturb-smartplayer');
+
+            const onReady = () => {
+                const delaySeconds = 1185;
+                try {
+                    playerEl && playerEl.displayHiddenElements && playerEl.displayHiddenElements(delaySeconds, [".esconder"], { persist: true });
+                } catch (e) {
+                    console.warn('Erro ao inicializar elementos ocultos do VSL:', e);
+                }
+            };
+
+            // Evitar recarregar o script do player se já está presente
+            const alreadyLoadedTag = document.querySelector(`script[src="${scriptSrc}"]`);
+            if (alreadyLoadedTag || (typeof loadedScripts !== 'undefined' && loadedScripts.has(scriptSrc))) {
+                if (playerEl) {
+                    playerEl.addEventListener('player:ready', onReady, { once: true });
+                }
                 return;
             }
-            
+
+            // Se o SDK já registrou os custom elements, apenas escutar o evento ready
+            if (sdkDefined && playerEl) {
+                playerEl.addEventListener('player:ready', onReady, { once: true });
+            }
+
             const script = document.createElement('script');
             script.src = scriptSrc;
             script.type = 'text/javascript';
             script.async = true;
-            
+
             script.onload = () => {
                 // Aguardar um pouco para o player ser inicializado
                 setTimeout(() => {
                     const player = document.querySelector('vturb-smartplayer');
                     if (player) {
-                        player.addEventListener('player:ready', () => {
-                            const delaySeconds = 1185;
-                            player.displayHiddenElements(delaySeconds, [".esconder"], {persist: true});
-                        });
+                        player.addEventListener('player:ready', onReady, { once: true });
                     }
-                }, 500);
+                }, 200);
             };
-            
+
             document.head.appendChild(script);
+            if (typeof loadedScripts !== 'undefined') {
+                loadedScripts.add(scriptSrc);
+            }
         }
     }
 
@@ -162,12 +171,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (divId !== 'vsl') {
                     const iframe = div.querySelector('iframe');
                     if (iframe) {
-                        // Reload iframe to stop video
-                        const src = iframe.src;
+                        // Blank out iframe to stop video and prevent autoplay
                         iframe.src = 'about:blank';
-                        setTimeout(() => {
-                            iframe.src = src;
-                        }, 100);
                     }
                 } else {
                     // Stop VSL player
@@ -183,17 +188,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 div.style.display = 'none';
             }
         });
-
+    
         const currentDivId = stepNumber <= 3 ? `video${stepNumber}` : 'vsl';
         const currentDiv = document.getElementById(currentDivId);
         if (currentDiv) {
             // Load script only for VSL (step 4) - videos 1-3 are iframes
             if (stepNumber === 4) {
                 loadVideoScript('vsl');
+            } else {
+                // Set iframe src only when showing the step
+                const iframe = currentDiv.querySelector('iframe');
+                if (iframe && iframe.dataset.embedSrc) {
+                    iframe.src = iframe.dataset.embedSrc + (location.search || '?') + '&vl=' + encodeURIComponent(location.href);
+                }
             }
             currentDiv.style.display = 'block';
         }
-        
+    
         // Control evaluation and payment sections visibility based on step
         updateSectionVisibility(stepNumber);
     }
