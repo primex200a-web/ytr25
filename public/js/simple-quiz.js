@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const player = document.querySelector('vturb-smartplayer');
                     if (player) {
                         player.addEventListener('player:ready', () => {
-                            const delaySeconds = 530;
+                            const delaySeconds = 1185;
                             player.displayHiddenElements(delaySeconds, [".esconder"], {persist: true});
                         });
                     }
