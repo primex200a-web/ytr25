@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let scriptSrc = '';
     
     if (type === 'vsl') {
-            scriptSrc = 'https://scripts.converteai.net/5d9f8480-70ee-4640-ab7d-afc37958aa16/players/68d8628f232c1a965f3c9395/v4/player.js';
+            scriptSrc = 'https://scripts.converteai.net/5d9f8480-70ee-4640-ab7d-afc37958aa16/players/690d396a86e3a582c04eb4ff/v4/player.js';
             
             // Verificar se o script já foi carregado
             const existingScript = document.querySelector(`script[src="${scriptSrc}"]`);
@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const player = document.querySelector('vturb-smartplayer');
                     if (player) {
                         player.addEventListener('player:ready', () => {
-                            const delaySeconds = 530;
+                            const delaySeconds = 1185;
                             player.displayHiddenElements(delaySeconds, [".esconder"], {persist: true});
                         });
                     }
